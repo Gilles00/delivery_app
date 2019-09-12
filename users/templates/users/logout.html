@@ -1,0 +1,12 @@
+{% extends "users/base.html"%}
+{% block content %}
+
+<h5>You have been logged from your portal</h5>
+<div class="border-top pt-3">
+    <small class="muted">
+        <a href="{% url 'users:login' %}" class="ml-2">
+            Log In Again ?
+        </a>
+    </small>
+</div>
+{% endblock content %}

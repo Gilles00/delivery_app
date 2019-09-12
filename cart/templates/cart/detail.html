@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Menu
+{% endblock %}
+
+{% block content %}
+<div class="title">
+    Shopping Bag
+    <a href="/cart/clear" >Clear Shopping Cart</a>
+    <a href="/kitchens/{{ cart.get_provider.id }}/dishes" >Continue Shopping</a>
+  </div>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="shopping-cart">
+
+  {% for item in cart %}
+  <div class="item">
+    <div class="buttons">
+      <span class="delete-btn"><a href="{% url "cart:cart_remove" item.dish.id %}" >X</a></span>
+    </div>
+
+    <div class="image">
+      <img src="{% if item.dish.image %}{{ item.dish.image }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+    </div>
+
+    <div class="description">
+      {{item.dish.name}}
+    </div>
+
+      <div class="price">
+          ${{item.price}}
+      </div>
+
+    <div class="quantity">
+      <form action="{% url "cart:cart_add" item.dish.id %}" method="post">
+                {{ item.update_quantity_form.quantity }}
+                {{ item.update_quantity_form.update }}
+                <input type="submit" value="Update">
+                {% csrf_token %}
+        </form>
+    </div>
+
+    <div class="total-price">${{item.total_price}}</div>
+  </div>
+     {% endfor %}
+    <div class="total">
+        <span>Total: ${{ cart.get_total_price|floatformat:"2" }}</span>
+    </div>
+    </div>
+
+    <a href="{% url "orders:order_create" %}" class="button-checkout">Checkout</a>
+
+{% endblock %}

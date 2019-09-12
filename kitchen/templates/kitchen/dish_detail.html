@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Dish
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ dish.name }}</h1>
+<p>Veg: {{ dish.veg }}</p>
+<p>Description: {{ dish.description|linebreaksbr }}</p>
+<p>Price: ${{ dish.price }}</p>
+{% if dish.image %}
+    <p><img src="{{ dish.image.url }}" style="width: 120px"/></p>
+{% endif %}
+<form action="{% url "cart:cart_add" dish.id %}" method="post">
+    {{ cart_add_form }}
+    {% csrf_token %}
+    <input type="submit" value="Add to cart">
+</form>
+<p>Served by <a href="{% url 'kitchen:kitchen_details' kitchen.id %}">{{ kitchen.name }}</a></p>
+
+{% if request.user == kitchen.user %}
+    <a href="{% url 'kitchen:dish_update' kitchen.id dish.id %}">edit dish info</a>
+{% endif %}
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

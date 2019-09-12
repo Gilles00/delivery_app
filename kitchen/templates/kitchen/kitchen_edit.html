@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Add New Kitchen
+{% endblock %}
+
+{% block content %}
+  <form method='post' class="kitchen_form" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  Working Days:
+  {{ days_form.as_p }}
+  <button type="submit" class='save button'>save</button>
+  </form>
+{% endblock %}

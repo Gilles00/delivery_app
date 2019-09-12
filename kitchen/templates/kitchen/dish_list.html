@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Menu
+{% endblock %}
+
+{% block content %}
+
+<h1>
+    Menu
+</h1>
+<ul>
+    {% for dish in dish_list %}
+        <li><a href="{% url 'kitchen:dish_details' dish.kitchen.id dish.id %}">
+            {{ dish.name }}</a></li>
+    {% empty %}<li>Sorry, no restaurants registered yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
