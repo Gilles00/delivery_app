@@ -53,8 +53,17 @@ def kitchen_update(request,pk):
     return render(request,'kitchen/kitchen_edit.html',{'form':form, 'days_form':days_form})
 
 
+def kitchen_remove(request,pk):
+    dishes = Dish.objects.filter(kitchen=pk)
+    for dish in dishes:
+        dish.delete()
+    instance = Kitchen.objects.get(pk=pk)
+    instance.delete()
+    return redirect('/kitchens')
+
+
 def dish_list(request,pk):
-    dishes = Dish.objects.filter(kitchen = pk)
+    dishes = Dish.objects.filter(kitchen=pk)
     return render(request,'kitchen/dish_list.html',{'dish_list':dishes})
 
 
@@ -68,7 +77,7 @@ def dish_details(request,pkk,pk):
 
 
 @login_required
-def dish_new(request,pk):
+def dish_new(request, pk):
     if request.method == "POST":
         form = DishForm(request.POST, request.FILES)
         if form.is_valid():
@@ -93,3 +102,9 @@ def dish_update(request, pkk, pk):
     else:
         form = DishForm(instance=dish)
     return render(request, 'kitchen/dish_edit.html', {'form':form})
+
+
+def dish_remove(request, pkk, pk):
+    dish = Dish.objects.get(pk=pk)
+    dish.delete()
+    return redirect('kitchen:dish_list',pk=pkk)
