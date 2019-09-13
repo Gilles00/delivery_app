@@ -1,7 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from users.forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
+from .models import Profile
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Permission
 
 
 def register(request):
@@ -18,19 +21,26 @@ def register(request):
 
 
 @login_required
-def profile(request):
+def profile(request, pk):
+    user = get_object_or_404(User,pk=pk)
+    user_profile = get_object_or_404(Profile,user_id=request.user.id)
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST)
-        p_form = ProfileUpdateForm(request.POST)
+        u_form = UserUpdateForm(request.POST, instance=user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=user_profile)
         if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            username = u_form.cleaned_data.get('username')
+            user = u_form.save()
+            user_profile = p_form.save()
+            permission = Permission.objects.get(name='Can Add Kitchen')
+            if user_profile.is_Provider == 1:
+                user.user_permissions.add(permission)
+            else:
+                user.user_permissions.remove(permission)
             messages.success(request, f'Your profile has been updated!')
-            return redirect('/')
+            return redirect('users:profile', pk=user.id,)
     else:
-        u_form = UserUpdateForm(request.POST)
-        p_form = ProfileUpdateForm(request.POST)
+        u_form = UserUpdateForm(instance=user)
+        p_form = ProfileUpdateForm(instance=user_profile)
     return render(request, 'users/profile.html', {'u_form': u_form,
-                                                  'p_form': p_form})
+                                                  'p_form': p_form,
+                                                  'profile':user_profile})
 

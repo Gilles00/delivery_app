@@ -1,10 +1,20 @@
 {% extends "users/base.html" %}
+{% load static %}
 {% block content %}
 
 <div class="content-section">
-
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}> {{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
   <div class="media">
-    <img class="rounded-circle account-img" src="/media/default.jpg" >
+    <img class="rounded-circle account-img"
+         src="{% if profile.image %}{{ profile.image.url }}
+         {% else %} {%static 'img/default.jpg'%}
+         {% endif %}">
 
     <div class="media-body">
       <h2 class="account-heading"> Welcome to your profile  {{user.username}}</h2>

@@ -3,6 +3,7 @@ from . models import Kitchen, Dish, Days
 from . forms import KitchenForm, DishForm, DaysForm
 from cart.forms import CartAddForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 
 
 def kitchen_list(request):
@@ -16,6 +17,7 @@ def kitchen_details(request,pk):
 
 
 @login_required
+@permission_required('kitchen.add_kitchen', raise_exception=True)
 def kitchen_new(request):
     if request.method == "POST":
         form = KitchenForm(request.POST, request.FILES)

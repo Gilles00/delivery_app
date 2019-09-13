@@ -19,14 +19,13 @@ class UserRegisterForm(UserCreationForm):
         }
 
 
-class UserUpdateForm(forms.Form):
+class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['email']
         help_texts = {
-            'username': None,
             'email': None,
         }
 
@@ -34,4 +33,4 @@ class UserUpdateForm(forms.Form):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = ['image','is_Provider']
