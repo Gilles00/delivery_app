@@ -105,6 +105,6 @@ def dish_update(request, pkk, pk):
 
 
 def dish_remove(request, pkk, pk):
-    dish = Dish.objects.get(pk=pk)
-    dish.delete()
+    instance = Dish.objects.get(pk=pk)
+    instance.delete()
     return redirect('kitchen:dish_list',pk=pkk)

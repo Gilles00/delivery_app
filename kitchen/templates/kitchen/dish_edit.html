@@ -6,12 +6,12 @@
 {% block content %}
 <style>
   body {
-  background-image: url( "{% static 'img/yum.jpg' %}");
+  background-image: url( "{% static 'img/plate.jpg' %}");
   background-size: cover;
   }
 </style>
 
-<h2 class="add_kitchen_title">Add New Dish</h2>
+<h2 class="add_kitchen_title" style="color: white">Add New Dish</h2>
 <div class="add_kitchen">
   <form method='post' class="kitchen_form" enctype="multipart/form-data">
   {% csrf_token %}
