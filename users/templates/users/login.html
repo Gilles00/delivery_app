@@ -1,23 +1,37 @@
-{% extends "users/base.html" %}
-{% block content %}
+{% load static %}
+<!doctype html>
+<html lang="en">
 
-    <div class="content-section">
-        <!-- AUTH_USERS WITH LOGIN VIEW TAKES CARE ABOUT EVERYTHING -->
-        <form method="POST">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>FreedomFeastor</title>
+    <meta name="viewport" contenidth=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet" type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet"  href="{% static 'css/login.css' %}">
+
+    <style>
+        .body{ background-image: url( "{% static 'img/yum.jpg' %}");}
+</style>
+</head>
+<body class="body">
+<div class="login-page">
+   <div class="login-page">
+  <div class="form">
+
+    <form method="POST">
             {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Log In</legend>
                 {{ form.as_p}}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Login</button>
-            </div>
-        </form>
+        <button type="submit" on click="window.location.href='login.html'" >SIGN IN</button>
 
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Don't have an account? <a class="ml-2" href="{% url 'users:register' %}">Sign Up</a>
-            </small>
-        </div>
-    </div>
-{% endblock content %}
+    </form>
+      <a href="/">Cancel</a>
+  </div>
+</div>
+</div>
+<script src="./assets/javascript/home.js"></script>
+</body>
+</html>

@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block content %}
+<div class="order_list">
 <h2>Order History</h2>
-<table class="order_list">
+<table class="order_tb">
     <tr>
         <th>Order No.</th>
+        <th>Customer</th>
         <th>Provider</th>
         <th>Address</th>
         <th>Delivery</th>
@@ -17,6 +19,7 @@
 {% for order in orders %}
 <tr>
     <td><a href="/order/{{order.id}}">{{ order.id }}</a></td>
+    <td>{{ order.first_name }} {{ order.last_name }}</td>
     <td>{{ order.provider.name }}</td>
     <td>{{ order.address }}</td>
     <td>{{ order.delivery }}</td>
@@ -24,5 +27,5 @@
 </tr>
     {% endfor %}
 </table>
-
+</div>
 {% endblock %}

@@ -11,6 +11,12 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+        help_texts = {
+            'username': None,
+            'email': None,
+            'password1': None,
+            'password2': None,
+        }
 
 
 class UserUpdateForm(forms.Form):
@@ -19,6 +25,10 @@ class UserUpdateForm(forms.Form):
     class Meta:
         model = User
         fields = ['username', 'email']
+        help_texts = {
+            'username': None,
+            'email': None,
+        }
 
 
 class ProfileUpdateForm(forms.ModelForm):

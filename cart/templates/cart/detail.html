@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Menu
+    Cart
 {% endblock %}
 
 {% block content %}
@@ -24,11 +24,11 @@
   {% for item in cart %}
   <div class="item">
     <div class="buttons">
-      <span class="delete-btn"><a href="{% url "cart:cart_remove" item.dish.id %}" >X</a></span>
+      <span class="delete-btn"><a href="{% url 'cart:cart_remove' item.dish.id %}" >X</a></span>
     </div>
 
     <div class="image">
-      <img src="{% if item.dish.image %}{{ item.dish.image }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+      <img src="{{ item.dish.image.url }}">
     </div>
 
     <div class="description">
@@ -56,6 +56,6 @@
     </div>
     </div>
 
-    <a href="{% url "orders:order_create" %}" class="button-checkout">Checkout</a>
+    <a href="{% url 'orders:order_create' %}" class="button-checkout" style="text-decoration:none;">Checkout</a>
 
 {% endblock %}

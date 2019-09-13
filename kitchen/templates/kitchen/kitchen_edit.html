@@ -1,15 +1,24 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}
     Add New Kitchen
 {% endblock %}
-
 {% block content %}
+<style>
+  body {
+  background-image: url( "{% static 'img/bk.jpg' %}");
+  background-size: cover;
+  }
+</style>
+
+<h2 class="add_kitchen_title">Add Your Kitchen</h2>
+<div class="add_kitchen">
   <form method='post' class="kitchen_form" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
-  Working Days:
+  Working Days:<br>
   {{ days_form.as_p }}
   <button type="submit" class='save button'>save</button>
   </form>
+</div>
 {% endblock %}

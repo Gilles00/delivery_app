@@ -4,7 +4,7 @@
 <div class="content-section">
 
   <div class="media">
-    <img class="rounded-circle account-img" src="/media/default.jpg">
+    <img class="rounded-circle account-img" src="/media/default.jpg" >
 
     <div class="media-body">
       <h2 class="account-heading"> Welcome to your profile  {{user.username}}</h2>
@@ -12,13 +12,10 @@
     </div>
   </div>
   <!-- FORM HERE -->
-       <form method="POST" enctype="multipart/form-data">
+       <form method="POST" enctype="multipart/form-data" class="update_profile">
             {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Profile Info</legend>
                 {{ u_form.as_p}}
                 {{ p_form.as_p}}
-            </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit"> Update</button>
             </div>

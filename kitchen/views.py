@@ -24,6 +24,7 @@ def kitchen_new(request):
             work_days = days_form.save()
             kitchen = form.save(commit=False)
             kitchen.days = work_days
+            kitchen.user = request.user
             kitchen.save()
             return redirect('kitchen:kitchen_details',pk=kitchen.pk)
     else:

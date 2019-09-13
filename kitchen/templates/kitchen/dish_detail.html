@@ -6,23 +6,36 @@
 
 {% block content %}
 
-<h1>{{ dish.name }}</h1>
-<p>Veg: {{ dish.veg }}</p>
-<p>Description: {{ dish.description|linebreaksbr }}</p>
-<p>Price: ${{ dish.price }}</p>
-{% if dish.image %}
-    <p><img src="{{ dish.image.url }}" style="width: 120px"/></p>
+<div class="kitchen_image">
+    <img src="{{ dish.image.url }}" />
+</div>
+
+<div class="user_auth" >
+{% if request.user == kitchen.user %}
+    <a href="{% url 'kitchen:dish_update' kitchen.id dish.id %}">edit dish info</a>
 {% endif %}
-<form action="{% url "cart:cart_add" dish.id %}" method="post">
+</div>
+
+<div class="kitchen_info">
+
+<h2>{{ dish.name }}</h2><br>
+<p>Veg: {{ dish.veg }}</p>
+<p>Description: <br>{{ dish.description|linebreaksbr }}</p>
+<p>Price: ${{ dish.price }}</p>
+<p>Served by
+    <a href="{% url 'kitchen:kitchen_details' kitchen.id %}" style="text-decoration:none;">
+        {{ kitchen.name }}
+    </a>
+</p>
+
+<form action="{% url 'cart:cart_add' dish.id %}" method="post">
     {{ cart_add_form }}
     {% csrf_token %}
     <input type="submit" value="Add to cart">
 </form>
-<p>Served by <a href="{% url 'kitchen:kitchen_details' kitchen.id %}">{{ kitchen.name }}</a></p>
 
-{% if request.user == kitchen.user %}
-    <a href="{% url 'kitchen:dish_update' kitchen.id dish.id %}">edit dish info</a>
-{% endif %}
+</div>
+
 {% endblock %}
 
 {% block footer %}

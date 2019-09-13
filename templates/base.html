@@ -4,29 +4,69 @@
 <head>
     <meta charset="utf-8" />
     <title>{% block title %}Feast Freedom{% endblock %}</title>
-    <link href="{% static "css/base.css" %}" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Feastor Freedom">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/pulse/bootstrap.min.css" rel="stylesheet" integrity="sha384-/uQFqO50IaQu2rNJYKPpV7zwsWJtd6V4DGX4wMw1ATz4KPuZEV96qQ2heVAw2kr2" crossorigin="anonymous">
 
-</head>
-<body>
-    <div id="header">
-        <a href="/" class="logo">Feast Freedom</a>
-    </div>
-    <div id="subheader">
-        <div class="cart">
-            {% with total_items=cart|length %}
+  </head>
+  <body>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="font-size:18px;">
+      <a class="navbar-brand" href="#"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+       <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+            <li class="nav-item" style="margin-right:450px;">
+            <a class="nav-link" href="{% url 'kitchen:kitchen_list' %}">Kitchen</a>
+          </li>
+            {% if user.is_authenticated%}
+            <li class="nav-item">
+                <a class="nav-link" href="/profile">Hi, {{ request.user.username }}!</a>
+              </li>
+             <li class="nav-item">
+              <a class="nav-link" href="{% url 'kitchen:kitchen_new' %}">Add Kitchen</a>
+             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'order:order_list' %}">Order History</a>
+             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:signup' %}">Sign Up</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+            {% endif %}
+
+            <li class="nav-item">
+                {% with total_items=cart|length %}
                 {% if cart|length > 0 %}
-                    Your cart: 
-                    <a href="{% url "cart:cart_detail" %}">
-                        {{ total_items }} item{{ total_items|pluralize }}, ${{ cart.get_total_price }}
+                    <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+                        Your cart: {{ total_items }} item{{ total_items|pluralize }}, ${{ cart.get_total_price }}
                     </a>
                 {% else %}
+                    <a class="nav-link" href="#">
                     Your cart is empty.
+                    </a>
                 {% endif %}
             {% endwith %}
-        </div>
-    </div>
+            </li>
+        </ul>
+      </div>
+    </nav>
+
     <div id="content">
         {% block content %}
         {% endblock %}

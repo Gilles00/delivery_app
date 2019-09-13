@@ -6,18 +6,20 @@
 
 {% block content %}
 
-<h2>CheckOut</h2>
+<div class="order" style="margin-left:20px; margin-right:20px">
+<br><h2>CheckOut</h2><br>
 <div class="row">
 
     <div class="col-75">
     <div class="container">
+        <br>
         <p>First Name: {{ user.first_name }}</p>
         <p>Last Name: {{ user.last_name }}</p>
         <p>Email: {{ user.email }}</p>
     <form action="." method="post" >
         <div class="col-50">
         {{ form.as_p }}
-        <input type="submit" value="Place order" class="btn">
+        <input type="submit" value="Place order" class="btn" style="font-size:20px">
         {% csrf_token %}
         </div>
     </form>
@@ -26,13 +28,15 @@
 
     <div class="col-25">
     <div class="container">
-        <h3>Your order</h3>
+        <h3>Your order</h3><br>
         <ul>
             {% for item in cart %}
                 <li>{{ item.quantity }} x {{ item.dish.name }} <span>${{ item.total_price }}</span></li>
             {% endfor %}
         </ul>
-        <p>Total: ${{ cart.get_total_price }}</p>
+        <br>
+        <p style="font-weight:bold;">Total: ${{ cart.get_total_price }}</p>
+    </div>
     </div>
     </div>
 </div>

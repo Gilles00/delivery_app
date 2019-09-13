@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block content %}
+<div class="thanks" >
     <h1>Thank you</h1>
     <p>Your order has been successfully completed. Your order number is <strong>{{ order.id }}</strong>.</p>
     <p><a href="/order/{{ order.id }}">View Order Detail</a></p>
+</div>
 {% endblock %}

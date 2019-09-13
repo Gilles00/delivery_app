@@ -1,19 +1,26 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     Menu
 {% endblock %}
 
 {% block content %}
+<h2 class="kitchen_list">Browse Kitchen Available</h2>
 
-<h1>
-    Menu
-</h1>
-<ul>
-    {% for dish in dish_list %}
-        <li><a href="{% url 'kitchen:dish_details' dish.kitchen.id dish.id %}">
-            {{ dish.name }}</a></li>
-    {% empty %}<li>Sorry, no restaurants registered yet.</li>
-    {% endfor %}
-</ul>
+{% for dish in dish_list %}
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="{% url 'kitchen:dish_details' dish.kitchen.id dish.id %}">
+      <img src="{{ dish.image.url }}" alt="dish">
+    </a>
+  </div>
+  <a href="{% url 'kitchen:dish_details' dish.kitchen.id dish.id %}" style="text-decoration:none;">
+    <div class="name">{{ dish.name }}</div>
+    </a>
+  <div class="desc">{{ dish.description }}</div>
+</div>
+{% endfor %}
+
+<div class="clearfix"></div>
 {% endblock %}

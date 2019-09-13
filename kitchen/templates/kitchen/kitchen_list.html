@@ -1,19 +1,25 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     Kitchen
 {% endblock %}
 
 {% block content %}
-<h1>
-    Kitchens
-</h1>
-<a href="/kitchens/new">Register new kitchen</a>
-<ul>
-    {% for kitchen in kitchen_list %}
-        <li><a href="{% url 'kitchen:kitchen_details' kitchen.id %}">
-            {{ kitchen.name }}</a></li>
-    {% empty %}<li>Sorry, no restaurants registered yet.</li>
-    {% endfor %}
-</ul>
+<h2 class="kitchen_list">Browse Kitchen Available</h2>
+
+{% for kitchen in kitchen_list %}
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="{% url 'kitchen:kitchen_details' kitchen.id %}">
+      <img src="{{ kitchen.image.url }}" alt="kitchen" >
+    </a>
+  </div>
+  <a href="{% url 'kitchen:kitchen_details' kitchen.id %}" style="text-decoration:none;">
+    <div class="name">{{ kitchen.name }}</div>
+    </a>
+</div>
+{% endfor %}
+
+<div class="clearfix"></div>
 {% endblock %}

@@ -5,11 +5,24 @@
 {% endblock %}
 
 {% block content %}
-<h1>
-    {{ kitchen.name }}
 
-</h1>
-<p>
+<div class="kitchen_image">
+    <img src="{{ kitchen.image.url }}" />
+</div>
+
+<div class="user_auth" >
+{% if request.user == kitchen.user %}
+    <a href="{% url 'kitchen:kitchen_update' kitchen.id %}">edit kitchen info</a><br><br>
+    <a href="{% url 'kitchen:dish_new' kitchen.id %}">add dishes</a>
+{% endif %}
+</div>
+
+<div class="kitchen_info">
+<h2>
+    {{ kitchen.name }}
+</h2>
+
+<p>Working Days: <br>
 {% if kitchen.days.Monday == 1 %}
 Mon {% endif %}
 {% if kitchen.days.Tuesday == 1 %}
@@ -25,18 +38,14 @@ Sat {% endif %}
 {% if kitchen.days.Sunday == 1 %}
 Sun {% endif %}
 </p>
-<p>{{ kitchen.start_time }}</p>
-<p>{{ kitchen.end_time }}</p>
-{% if kitchen.image %}
-<p><img src="{{ kitchen.image.url }}" style="width: 120px"/></p>
-{% endif %}
+<p>
+    Working Time:<br>
+    {{ kitchen.start_time }} - {{ kitchen.end_time }}
+</p>
 <h2>
-<a href="{% url 'kitchen:dish_list' kitchen.id %}">Menu</a>
+<a href="{% url 'kitchen:dish_list' kitchen.id %}">Go To Menu</a>
 </h2>
-{% if request.user == kitchen.user %}
-    <a href="{% url 'kitchen:kitchen_update' kitchen.id %}">edit kitchen info</a>
-    <a href="{% url 'kitchen:dish_new' kitchen.id %}">add dishes</a>
-{% endif %}
+</div>
 {% endblock %}
 {% block footer %}
 
