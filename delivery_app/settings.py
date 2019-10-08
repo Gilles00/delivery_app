@@ -87,6 +87,14 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'deliveryapp',
+    #     'USER': 'admin',
+    #     'PASSWORD': 'jtl520_st',
+    #     'HOST': 'database-1.c1b7qsu4xbyv.us-east-2.rds.amazonaws.com',
+    #     'PORT': '3306',
+    # }
 }
 
 

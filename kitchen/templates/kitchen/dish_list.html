@@ -11,7 +11,7 @@
 {% for dish in dish_list %}
 <div class="responsive">
   <div class="gallery">
-    <a target="_blank" href="{% url 'kitchen:dish_details' dish.kitchen.id dish.id %}">
+    <a href="{% url 'kitchen:dish_details' dish.kitchen.id dish.id %}">
       <img src="{{ dish.image.url }}" alt="dish">
     </a>
   </div>

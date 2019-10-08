@@ -13,7 +13,7 @@
 <div class="user_auth" >
 {% if request.user == kitchen.user %}
     <a href="{% url 'kitchen:dish_update' kitchen.id dish.id %}">Edit dish info</a><br><br>
-    <a href="{% url 'kitchen:dish_update' kitchen.id dish.id %}">Remove dish</a>
+    <a href="{% url 'kitchen:dish_remove' kitchen.id dish.id %}">Remove dish</a>
 {% endif %}
 </div>
 
