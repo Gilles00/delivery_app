@@ -29,7 +29,10 @@ def cart_remove(request, dish_id):
     dish = get_object_or_404(Dish, id=dish_id)
     cart.remove(dish)
     messages.success(request, 'Remove dishes successfully.')
-    return redirect('cart:cart_detail')
+    if (cart.__len__() == 0):
+        return redirect('kitchen:kitchen_list')
+    else:
+        return redirect('cart:cart_detail')
 
 
 def cart_detail(request):
@@ -43,4 +46,4 @@ def cart_detail(request):
 def cart_clear(request):
     cart = Cart(request)
     cart.clear()
-    return redirect('cart:cart_detail')
+    return redirect('kitchen:kitchen_list')
